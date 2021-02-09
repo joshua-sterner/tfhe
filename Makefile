@@ -1,4 +1,4 @@
-CMAKE_COMPILER_OPTS=
+CMAKE_COMPILER_OPTS=-DCMAKE_TOOLCHAIN_FILE=/mnt/nvme0n1p3/android_sdk/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DANDROID_ABI=arm64-v8a -DANDROID_NATIVE_API_LEVEL=21 -DENABLE_NAYUKI_PORTABLE=on -DENABLE_NAYUKI_AVX=off -DENABLE_SPQLIOS_AVX=off -DENABLE_SPQLIOS_FMA=off
 CMAKE_TESTS_OPTS=-DENABLE_TESTS=on -DENABLE_FFTW=on \
 		 -DENABLE_NAYUKI_PORTABLE=on -DENABLE_NAYUKI_AVX=on \
 		 -DENABLE_SPQLIOS_AVX=on -DENABLE_SPQLIOS_FMA=on
@@ -24,7 +24,7 @@ test: builddtests buildotests src/test/googletest/CMakeLists.txt
 	make -j $(nproc) -C buildotests test VERBOSE=1
 
 build: src/test/googletest/CMakeLists.txt
-	mkdir build; cd build; cmake ../src; cd ..
+	mkdir build; cd build; cmake ${CMAKE_COMPILER_OPTS} ../src; cd ..
 
 builddtests:
 	rm -rf $@; true; mkdir $@; 
